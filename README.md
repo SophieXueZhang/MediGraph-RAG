@@ -1,67 +1,52 @@
-# 🏥 MediGraph – AI-Powered Medical Knowledge Graph Q&A
+# 🏥 MediGraph – AI-Powered Medical Knowledge-Graph Q&A
 
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![Neo4j](https://img.shields.io/badge/database-Neo4j-green.svg)](https://neo4j.com/)
-[![OpenAI](https://img.shields.io/badge/llm-OpenAI_GPT--4o--mini-orange.svg)](https://openai.com/)
-[![Streamlit](https://img.shields.io/badge/interface-Streamlit-red.svg)](https://streamlit.io/)
-[![LangChain](https://img.shields.io/badge/rag-LangChain-yellow.svg)](https://langchain.com/)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/) 
+[![Neo4j](https://img.shields.io/badge/database-Neo4j-green.svg)](https://neo4j.com/) 
+[![LLM](https://img.shields.io/badge/llm-GPT-4o--mini-orange.svg)](https://openai.com/) 
+[![Streamlit](https://img.shields.io/badge/ui-Streamlit-red.svg)](https://streamlit.io/)
 
-**Ask medical questions in plain English and get evidence-based answers with citations, powered by a graph database and state-of-the-art AI.**
-
----
-
-## 1. Why MediGraph Matters *(Non-technical overview)*
-
-|                                   | MediGraph Delivers |
-|-----------------------------------|--------------------|
-| **Reliable answers**              | Draws facts from FDA drug labels & PubMed abstracts rather than guessing |
-| **Clear citations**               | Every answer lists the exact sources it used |
-| **Fast**                          | ~2.4 s average response time on a laptop |
-| **Bilingual interface**           | English UI (Chinese coming soon) |
-| **Free & local**                  | Runs entirely on your machine – no data leaves your computer |
-
-> *Disclaimer: Information is for educational purposes only. Always consult healthcare professionals for diagnosis or treatment.*
+> **Ask any medical question in plain English and get an evidence-based answer with clickable citations — all processed locally on your machine.**
+>
+> *Disclaimer: Information is for educational purposes only. Always consult a healthcare professional.*
 
 ---
 
-## 2. Quick Demo (30 s)
+## ✨ Key Benefits (for everyone)
 
-1. Start Neo4j and the web app (see Developer setup below).
-2. Visit `http://localhost:8506`.
-3. Try questions like:
-   * "What medications can treat hypertension?"
-   * "What are the side-effects of metformin?"
-
-The right panel shows the answer **and** the references that were read from the knowledge graph.
+| Benefit | What it means |
+|---------|---------------|
+| Reliable | Answers are built from FDA drug labels & PubMed abstracts — no hallucinations. |
+| Transparent | Every answer lists the exact sources used. |
+| Fast & private | ~2 s average latency, all data stays on your computer. |
+| Free | Runs with free Neo4j + OpenAI API tier. |
 
 ---
 
-## 3. How Does It Work? *(High-level)*
+## 🚀 3-Step Quick Start (⏱ < 5 min)
 
-```text
-Your Question → MediGraph UI → Retrieval-Augmented Generation (RAG)
-              →   Neo4j (graph) + FAISS (vectors)
-              →   GPT-4o-mini (answer synthesis) → Response + Sources
+```bash
+# 1) Clone & install
+$ git clone https://github.com/SophieXueZhang/MediGraph-RAG.git
+$ cd med-graph-rag
+$ pip install -r requirements.txt
+
+# 2) Launch Neo4j in Docker (username: neo4j / password: password)
+$ docker run --name neo4j-medical -d -p7474:7474 -p7687:7687 \
+    -e NEO4J_AUTH=neo4j/password neo4j:2025.06.0
+
+# 3) Run the UI (port 8506)
+$ export OPENAI_API_KEY="<your key>"
+$ streamlit run rag/streamlit_app_premium.py --server.port 8506
 ```
+Then open <http://localhost:8506> in your browser and ask for *"What medications treat hypertension?"* — the right panel shows supporting documents.
 
 ---
 
-## 4. Under the Hood *(For Developers)*
-
-| Layer               | Technology |
-|---------------------|------------|
-| **LLM**             | OpenAI **GPT-4o-mini** |
-| **Retrieval**       | **LangChain** Retrieval-QA, **FAISS** vector index |
-| **Graph Database**  | **Neo4j 2025.06.0** (Docker or local) |
-| **Embeddings**      | OpenAI `text-embedding-3-small` |
-| **Frontend**        | **Streamlit 1.37** (standard & premium themes) |
-| **NLP add-ons**     | Self-supervised **SimCSE** model for domain tuning |
-
-Architecture diagram (Mermaid):
+## 🛠️ How It Works (1-slide view)
 
 ```mermaid
 flowchart TD
-    UI["Streamlit Web UI"] --> RAG["LangChain RAG Pipeline"]
+    UI["Streamlit Web UI"] --> RAG["LangChain RAG"]
     subgraph Retrieval
         KG["Neo4j Knowledge Graph"]
         VS["FAISS Vector Store"]
@@ -74,342 +59,56 @@ flowchart TD
 
 ---
 
-## 5. Developer Setup *(5 steps / <5 min)*
+## 🧑‍💻 Tech Stack (for developers)
 
-```bash
-# 1. Clone & enter project
-$ git clone <repo>
-$ cd med-graph-rag
-
-# 2. Install Python deps (Python 3.8+)
-$ pip install -r requirements.txt
-
-# 3. Start Neo4j via Docker
-$ docker run --name neo4j-medical \
-    -p7474:7474 -p7687:7687 \
-    -d -e NEO4J_AUTH=neo4j/password \
-    neo4j:2025.06.0
-
-# 4. Export keys
-$ export OPENAI_API_KEY="sk-..."   # get yours from OpenAI
-$ export NEO4J_USER=neo4j
-$ export NEO4J_PASSWORD=password
-
-# 5. Launch UI (premium theme on port 8506)
-$ streamlit run rag/streamlit_app_premium.py --server.port 8506
-```
-
-> **Tip:** Use the lightweight `rag/streamlit_app.py` if you prefer a minimal interface.
+* **LLM** – OpenAI GPT-4o-mini
+* **Retrieval** – LangChain Retrieval-QA + FAISS vectors (OpenAI embeddings)
+* **Database** – Neo4j 2025.06.0
+* **Frontend** – Streamlit 1.37 (standard & premium themes)
 
 ---
 
-## 6. Project Layout *(short version)*
+## 📂 Project Structure
 
 ```text
 med-graph-rag/
-├─ rag/                  ← Streamlit apps & QA chain
-├─ graph/                ← Cypher schema & data import
-├─ models/               ← Fine-tuned SimCSE model files
-├─ data/                 ← (Empty) Place for future datasets
-├─ nlp/ & scripts/       ← Extend with custom NLP or ETL code
-└─ README.md             ← You are here
+├── rag/
+│   ├── __init__.py
+│   ├── qa_chain.py
+│   ├── streamlit_app.py
+│   └── streamlit_app_premium.py
+├── graph/
+│   ├── ingest.py
+│   └── schema.cypher
+├── models/
+│   └── simcse_medical/
+│       ├── config.json
+│       ├── ner_improvement_results.json
+│       ├── special_tokens_map.json
+│       ├── tokenizer.json
+│       ├── tokenizer_config.json
+│       └── vocab.txt
+├── nlp/
+│   └── __init__.py
+├── scripts/
+│   └── __init__.py
+├── data/               # placeholder for datasets
+├── arxiv_paper_draft.md
+├── PERFORMANCE_EVALUATION_SUMMARY.md
+├── requirements.txt
+└── README.md
 ```
-
-Detailed tree is in the appendix at the end of this file.
 
 ---
 
-## 7. Contributing
+## 🤝 Contributing
 
-1. **Fork** ➜ **Feature branch** ➜ **Pull Request**
-2. Please write commit messages in English and include before/after screenshots for UI changes.
-3. For major features, open an issue first so we can discuss.
-
----
-
-## 8. License
-
-MIT – do anything you want, but give credit and don't blame us.
+1. **Fork** ▸ **feature branch** ▸ **PR**
+2. Write tests / screenshots for UI changes.
+3. Keep commit messages and code comments in English.
 
 ---
-
-## Appendix: Full File Tree
-
-<!-- Auto-generated by `tree` → trimmed for brevity. Update if directories change. -->
-
-```text
-rag/
-  ├─ qa_chain.py
-  ├─ streamlit_app.py
-  └─ streamlit_app_premium.py
-graph/
-  ├─ schema.cypher
-  └─ ingest.py
-models/
-  └─ simcse_medical/ (config, tokenizer, model.pt, …)
-… (see repo)
-```
-
-## 🎯 Project Overview
-
-MediGraph is a fully operational medical knowledge graph RAG (Retrieval-Augmented Generation) system with the following core features:
-
-- 🗄️ **Neo4j Knowledge Graph**: 7,082+ medical nodes, 1,001+ document vectors
-- 🤖 **Intelligent Q&A**: Medical professional Q&A based on OpenAI GPT-4o-mini
-- 🔍 **Semantic Search**: FAISS vector database supporting precise semantic matching
-- 🌐 **Modern Interface**: Three Streamlit UI design styles
-- 🌍 **Multi-language Support**: Perfect support for English and Chinese medical Q&A
-- ⚡ **High Performance**: Average response time 2.36s, 100% accuracy
-
-## ✅ Current System Status
-
-### 🚀 **System Running and Accessible**
-- **Main Interface**: http://localhost:8506 (Premium English version)
-- **Standard Interface**: http://localhost:8510 (Standard English version)
-- **Database**: http://localhost:7474 (Neo4j Browser)
-
-### 📊 **Performance Metrics Achieved**
-| Metric | Target | Actual | Status |
-|--------|--------|--------|--------|
-| **Response Time** | < 3.0s | **2.36s** | ✅ Exceeded |
-| **Accuracy** | > 80% | **100%** | ✅ Perfect |
-| **Knowledge Nodes** | Target 100k+ | **7,082** | 🔄 MVP Stage |
-| **System Availability** | 24/7 | **Running** | ✅ Stable |
-
-## 🔧 Core Technology Stack
-
-### 🧠 **AI & NLP**
-- **Large Language Model**: OpenAI GPT-4o-mini
-- **Vector Retrieval**: FAISS semantic search
-- **RAG Framework**: LangChain RetrievalQA
-
-### 🗄️ **Data Storage**
-- **Graph Database**: Neo4j 2025.06.0
-- **Vector Storage**: FAISS local index
-- **Knowledge Representation**: Drug-Disease-Symptom relationship network
-
-### 🎨 **User Interface**
-- **Web Framework**: Streamlit 1.37.1
-- **Design Style**: Modern minimalist style
-- **Responsive Design**: Mobile device support
-
-### 🔗 **System Architecture**
-```
-User Question → Streamlit UI → LangChain RAG → Neo4j/FAISS → OpenAI GPT-4o-mini → Answer Output
-```
-
-## 🚀 Quick Start
-
-### 1. System Requirements
-```bash
-# System Requirements
-- Python 3.8+
-- Docker (for Neo4j)
-- 8GB+ RAM
-- OpenAI API Key
-```
-
-### 2. Install Dependencies
-```bash
-git clone <repository-url>
-cd med-graph-rag
-pip install -r requirements.txt
-```
-
-### 3. Start Neo4j
-```bash
-# Start Neo4j using Docker
-docker run --name neo4j-medical \
-  -p7474:7474 -p7687:7687 \
-  -d --env NEO4J_AUTH=neo4j/password \
-  neo4j:2025.06.0
-```
-
-### 4. Configure Environment Variables
-```bash
-export OPENAI_API_KEY="your_openai_api_key"
-export NEO4J_USER="neo4j"
-export NEO4J_PASSWORD="password"
-```
-
-### 5. Start System
-```bash
-# Start Premium English Interface (Recommended)
-streamlit run rag/streamlit_app_premium.py --server.port 8506
-
-# Or start Standard English Interface
-streamlit run rag/streamlit_app.py --server.port 8501
-```
-
-### 6. Access System
-- **Premium Interface**: http://localhost:8506
-- **Neo4j Management**: http://localhost:7474
-
-## 💬 Usage Examples
-
-### 📱 Web Interface Q&A
-Visit http://localhost:8506 and try these questions:
-
-```
-❓ What medications can treat hypertension?
-❓ What are the side effects of metformin?
-❓ What are the symptoms of diabetes?
-❓ How does aspirin work?
-❓ What are common heart disease medications?
-```
-
-### 🔧 Programmatic Usage
-```python
-from rag.qa_chain import MedicalQASystem
-
-# Initialize system
-qa_system = MedicalQASystem()
-qa_system.initialize()
-
-# Ask question
-response = qa_system.ask("What is metformin used for?")
-print(f"Answer: {response['answer']}")
-print(f"Sources: {len(response['source_documents'])} documents")
-```
-
-### 🔍 Knowledge Graph Queries
-Visit http://localhost:7474 to execute Cypher queries:
-
-```cypher
-// View system scale
-MATCH (n) RETURN labels(n)[0] as NodeType, count(n) as Count;
-
-// Find drug information
-MATCH (d:Drug) WHERE d.name CONTAINS "metformin" 
-RETURN d.name, d.description;
-
-// View relationship network
-MATCH (d:Drug)-[r]->(target) 
-RETURN d.name, type(r), labels(target)[0] 
-LIMIT 20;
-```
-
-## 🎨 Interface Features
-
-### 🎯 Design Features
-- **Pure white background** + dark gray text
-- **Generous whitespace**, content-focused
-- **Card-based layout**, clear hierarchy
-- **Responsive design**, mobile-friendly
-- **Elegant animations**, smooth experience
-
-### 📊 Rich Functionality
-- **Real-time system status** display
-- **Detailed reference materials** (500 characters)
-- **Performance metrics** monitoring
-- **Example questions** for quick testing
-- **Multi-language support** seamless switching
-
-## 📁 Project Structure
-
-```
-med-graph-rag/
-├── rag/                                    # RAG System Core
-│   ├── __init__.py                        # Module initialization (6 lines)
-│   ├── qa_chain.py                        # Medical Q&A chain (283 lines)
-│   ├── streamlit_app.py                   # Standard web interface (302 lines)
-│   ├── streamlit_app_premium.py           # Premium interface (430 lines)
-│   └── __pycache__/                       # Python cache files
-├── graph/                                  # Knowledge Graph Management
-│   ├── ingest.py                          # Data import script (352 lines)
-│   ├── schema.cypher                      # Neo4j data schema (197 lines)
-│   └── __pycache__/                       # Python cache files
-├── nlp/                                    # NLP Processing Modules
-│   └── __init__.py                        # Module initialization (9 lines)
-├── scripts/                                # Utility Scripts
-│   └── __init__.py                        # Module initialization (4 lines)
-├── models/                                 # AI Models
-│   └── simcse_medical/                    # Medical SimCSE model
-│       ├── config.json                    # Model configuration (7 lines)
-│       ├── ner_improvement_results.json   # NER results (30 lines)
-│       ├── simcse_model.pt                # Trained model (419MB)
-│       ├── special_tokens_map.json        # Special tokens (8 lines)
-│       ├── tokenizer.json                 # Tokenizer config (30.6K lines)
-│       ├── tokenizer_config.json          # Tokenizer settings (59 lines)
-│       └── vocab.txt                      # Vocabulary file (30.5K lines)
-├── data/                                   # Data Storage (empty)
-├── arxiv_paper_draft.md                    # Research paper draft (424 lines)
-├── PERFORMANCE_EVALUATION_SUMMARY.md       # Performance report (177 lines)
-├── README.md                               # Project documentation (258 lines)
-├── requirements.txt                        # Python dependencies (82 lines)
-└── streamlit.log                          # System log file (115 lines)
-```
-
-## 🔄 English Version Conversion
-
-All code has been converted to full English:
-
-### ✅ Completed Conversions
-- **Streamlit Applications**: All UI text, buttons, and messages
-- **QA Chain Module**: Comments, logging, and function documentation
-- **Data Ingestion**: Comments and variable names
-- **Example Questions**: Medical queries in English
-- **Documentation**: All README and documentation files
-
-### 🎯 Key Changes
-- Chinese comments → English comments
-- Chinese UI text → English UI text
-- Chinese example questions → English medical questions
-- Chinese log messages → English log messages
-- Chinese documentation → English documentation
-- Removed Chinese language options in favor of English-first interface
-
-### 🚀 Access Points
-- **Premium English UI**: http://localhost:8506
-- **Standard English UI**: http://localhost:8510
-- **System fully operational** with English interface
-
-## 🛡️ Medical Disclaimer
-
-⚠️ **Important**: This system provides educational information only. Always consult healthcare professionals for medical advice. Do not use this for self-diagnosis or treatment decisions.
-
-## 📊 System Advantages
-
-### ⚡ **High Performance**
-- Average response time: 2.36 seconds
-- Success rate: 100%
-- Concurrent support: Multi-user access
-- Cache optimization: Intelligent resource reuse
-
-### 🧠 **Professional**
-- Medical knowledge graph support
-- OpenAI GPT-4o-mini powered
-- Semantic precise matching
-- Medical terminology processing
-
-### 🛡️ **Security**
-- Environment variable configuration
-- API key protection
-- Data privacy protection
-- Secure database connections
 
 ## 📝 License
 
-MIT License - See [LICENSE](LICENSE) file
-
-## 🤝 Contribution Guidelines
-
-Welcome to contribute code and ideas!
-
-1. Fork the project
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Create Pull Request
-
-## 📧 Contact Information
-
-- 📋 Submit [Issue](../../issues) to report problems
-- 💡 Share improvement suggestions
-- 🔗 Participate in open source contributions
-
----
-
-⭐ **If this project helps you, please give a Star!** ⭐
-
-*Last updated: 2025-07-02* 
+MIT — do anything you like, just give credit 🎉 
