@@ -101,14 +101,3 @@ med-graph-rag/
 
 ---
 
-## 🤝 Contributing
-
-1. **Fork** ▸ **feature branch** ▸ **PR**
-2. Write tests / screenshots for UI changes.
-3. Keep commit messages and code comments in English.
-
----
-
-## 📝 License
-
-MIT — do anything you like, just give credit 🎉 
