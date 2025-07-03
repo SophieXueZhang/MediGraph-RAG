@@ -1,0 +1,7 @@
+{
+  "model_name": "microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract-fulltext",
+  "max_length": 512,
+  "temperature": 0.05,
+  "pooling": "cls",
+  "projection_dim": 256
+}

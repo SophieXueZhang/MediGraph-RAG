@@ -1,0 +1,114 @@
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8506
+  Network URL: http://192.168.1.113:8506
+  External URL: http://136.52.9.159:8506
+
+INFO:rag.qa_chain:Initializing Medical QA System...
+WARNING:neo4j.notifications:Received notification from DBMS server: {severity: WARNING} {code: Neo.ClientNotification.Statement.UnknownRelationshipTypeWarning} {category: UNRECOGNIZED} {title: The provided relationship type is not in the database.} {description: One of the relationship types in your query is not available in the database, make sure you didn't misspell it or that the label is available when you run this statement in your application (the missing relationship type is: TREATS)} {position: line: 3, column: 34, offset: 61} for query: '\n            MATCH (d:Drug)\n            OPTIONAL MATCH (d)-[:TREATS]->(disease:Disease)\n            OPTIONAL MATCH (d)-[:CAUSES]->(symptom:Symptom)\n            RETURN d.name as drug_name, d.description as description,\n                   collect(DISTINCT disease.name) as treats,\n                   collect(DISTINCT symptom.name) as side_effects\n            LIMIT 1000\n            '
+WARNING:neo4j.notifications:Received notification from DBMS server: {severity: WARNING} {code: Neo.ClientNotification.Statement.UnknownRelationshipTypeWarning} {category: UNRECOGNIZED} {title: The provided relationship type is not in the database.} {description: One of the relationship types in your query is not available in the database, make sure you didn't misspell it or that the label is available when you run this statement in your application (the missing relationship type is: TREATS)} {position: line: 3, column: 42, offset: 78} for query: '\n            MATCH (disease:Disease)\n            OPTIONAL MATCH (drug:Drug)-[:TREATS]->(disease)\n            OPTIONAL MATCH (disease)-[:HAS_SYMPTOM]->(symptom:Symptom)\n            RETURN disease.name as disease_name, disease.description as description,\n                   collect(DISTINCT drug.name) as treatments,\n                   collect(DISTINCT symptom.name) as symptoms\n            LIMIT 1000\n            '
+INFO:rag.qa_chain:Extracted 1001 documents from Neo4j
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+INFO:faiss.loader:Loading faiss.
+INFO:faiss.loader:Successfully loaded faiss.
+INFO:faiss:Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+INFO:rag.qa_chain:Built vector store with 1001 document chunks
+INFO:rag.qa_chain:Medical QA System initialized successfully
+2025-07-02 20:32:44.830 `label` got an empty value. This is discouraged for accessibility reasons and may be disallowed in the future by raising an exception. Please provide a non-empty label and hide it with label_visibility if needed.
+2025-07-02 20:33:29.299 `label` got an empty value. This is discouraged for accessibility reasons and may be disallowed in the future by raising an exception. Please provide a non-empty label and hide it with label_visibility if needed.
+2025-07-02 20:33:36.153 `label` got an empty value. This is discouraged for accessibility reasons and may be disallowed in the future by raising an exception. Please provide a non-empty label and hide it with label_visibility if needed.
+2025-07-02 20:33:36.328 `label` got an empty value. This is discouraged for accessibility reasons and may be disallowed in the future by raising an exception. Please provide a non-empty label and hide it with label_visibility if needed.
+INFO:rag.qa_chain:Processing question: 高血压
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:rag.qa_chain:Generated answer with 5 sources
+2025-07-02 20:33:58.862 `label` got an empty value. This is discouraged for accessibility reasons and may be disallowed in the future by raising an exception. Please provide a non-empty label and hide it with label_visibility if needed.
+2025-07-02 20:34:03.423 `label` got an empty value. This is discouraged for accessibility reasons and may be disallowed in the future by raising an exception. Please provide a non-empty label and hide it with label_visibility if needed.
+INFO:rag.qa_chain:Processing question: 糖尿病的治疗方法
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:rag.qa_chain:Generated answer with 5 sources
+2025-07-02 20:34:22.912 `label` got an empty value. This is discouraged for accessibility reasons and may be disallowed in the future by raising an exception. Please provide a non-empty label and hide it with label_visibility if needed.
+INFO:rag.qa_chain:Processing question: 高血压用药指南
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:rag.qa_chain:Generated answer with 5 sources
+2025-07-02 20:34:41.509 `label` got an empty value. This is discouraged for accessibility reasons and may be disallowed in the future by raising an exception. Please provide a non-empty label and hide it with label_visibility if needed.
+2025-07-02 20:34:41.649 `label` got an empty value. This is discouraged for accessibility reasons and may be disallowed in the future by raising an exception. Please provide a non-empty label and hide it with label_visibility if needed.
+INFO:rag.qa_chain:Processing question: through up
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:rag.qa_chain:Generated answer with 5 sources
+INFO:rag.qa_chain:Initializing Medical QA System...
+WARNING:neo4j.notifications:Received notification from DBMS server: {severity: WARNING} {code: Neo.ClientNotification.Statement.UnknownRelationshipTypeWarning} {category: UNRECOGNIZED} {title: The provided relationship type is not in the database.} {description: One of the relationship types in your query is not available in the database, make sure you didn't misspell it or that the label is available when you run this statement in your application (the missing relationship type is: TREATS)} {position: line: 3, column: 34, offset: 61} for query: '\n            MATCH (d:Drug)\n            OPTIONAL MATCH (d)-[:TREATS]->(disease:Disease)\n            OPTIONAL MATCH (d)-[:CAUSES]->(symptom:Symptom)\n            RETURN d.name as drug_name, d.description as description,\n                   collect(DISTINCT disease.name) as treats,\n                   collect(DISTINCT symptom.name) as side_effects\n            LIMIT 1000\n            '
+WARNING:neo4j.notifications:Received notification from DBMS server: {severity: WARNING} {code: Neo.ClientNotification.Statement.UnknownRelationshipTypeWarning} {category: UNRECOGNIZED} {title: The provided relationship type is not in the database.} {description: One of the relationship types in your query is not available in the database, make sure you didn't misspell it or that the label is available when you run this statement in your application (the missing relationship type is: TREATS)} {position: line: 3, column: 42, offset: 78} for query: '\n            MATCH (disease:Disease)\n            OPTIONAL MATCH (drug:Drug)-[:TREATS]->(disease)\n            OPTIONAL MATCH (disease)-[:HAS_SYMPTOM]->(symptom:Symptom)\n            RETURN disease.name as disease_name, disease.description as description,\n                   collect(DISTINCT drug.name) as treatments,\n                   collect(DISTINCT symptom.name) as symptoms\n            LIMIT 1000\n            '
+INFO:rag.qa_chain:Extracted 1001 documents from Neo4j
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+INFO:rag.qa_chain:Built vector store with 1001 document chunks
+INFO:rag.qa_chain:Medical QA System initialized successfully
+2025-07-02 21:08:21.773 `label` got an empty value. This is discouraged for accessibility reasons and may be disallowed in the future by raising an exception. Please provide a non-empty label and hide it with label_visibility if needed.
+2025-07-02 21:08:28.669 `label` got an empty value. This is discouraged for accessibility reasons and may be disallowed in the future by raising an exception. Please provide a non-empty label and hide it with label_visibility if needed.
+INFO:rag.qa_chain:Processing question: Diabetes treatment methods
+/Users/pc/Documents/cursor/ai/p2/med-graph-rag/rag/qa_chain.py:202: LangChainDeprecationWarning: The method `Chain.__call__` was deprecated in langchain 0.1.0 and will be removed in 1.0. Use :meth:`~invoke` instead.
+  response = self.qa_chain({"query": question})
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:rag.qa_chain:Generated answer with 5 sources
+2025-07-02 21:08:49.051 `label` got an empty value. This is discouraged for accessibility reasons and may be disallowed in the future by raising an exception. Please provide a non-empty label and hide it with label_visibility if needed.
+2025-07-02 21:08:49.250 `label` got an empty value. This is discouraged for accessibility reasons and may be disallowed in the future by raising an exception. Please provide a non-empty label and hide it with label_visibility if needed.
+INFO:rag.qa_chain:Processing question: 高血压
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:rag.qa_chain:Generated answer with 5 sources
+2025-07-02 21:09:00.919 `label` got an empty value. This is discouraged for accessibility reasons and may be disallowed in the future by raising an exception. Please provide a non-empty label and hide it with label_visibility if needed.
+INFO:rag.qa_chain:Processing question: Hypertension medication guide
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:rag.qa_chain:Generated answer with 5 sources
+2025-07-02 21:13:34.591 `label` got an empty value. This is discouraged for accessibility reasons and may be disallowed in the future by raising an exception. Please provide a non-empty label and hide it with label_visibility if needed.
+2025-07-02 21:13:37.417 `label` got an empty value. This is discouraged for accessibility reasons and may be disallowed in the future by raising an exception. Please provide a non-empty label and hide it with label_visibility if needed.
+INFO:rag.qa_chain:Processing question: Diabetes treatment methods
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:rag.qa_chain:Generated answer with 5 sources
+2025-07-02 21:13:53.947 `label` got an empty value. This is discouraged for accessibility reasons and may be disallowed in the future by raising an exception. Please provide a non-empty label and hide it with label_visibility if needed.
+2025-07-02 21:13:54.097 `label` got an empty value. This is discouraged for accessibility reasons and may be disallowed in the future by raising an exception. Please provide a non-empty label and hide it with label_visibility if needed.
+INFO:rag.qa_chain:Processing question: 高血压
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:rag.qa_chain:Generated answer with 5 sources
+2025-07-02 21:16:54.913 `label` got an empty value. This is discouraged for accessibility reasons and may be disallowed in the future by raising an exception. Please provide a non-empty label and hide it with label_visibility if needed.
+2025-07-02 21:16:57.827 `label` got an empty value. This is discouraged for accessibility reasons and may be disallowed in the future by raising an exception. Please provide a non-empty label and hide it with label_visibility if needed.
+INFO:rag.qa_chain:Processing question: 676uy
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:rag.qa_chain:Generated answer with 5 sources
+2025-07-02 21:17:13.967 `label` got an empty value. This is discouraged for accessibility reasons and may be disallowed in the future by raising an exception. Please provide a non-empty label and hide it with label_visibility if needed.
+INFO:rag.qa_chain:Processing question: 676uy
+2025-07-02 21:17:14.088 `label` got an empty value. This is discouraged for accessibility reasons and may be disallowed in the future by raising an exception. Please provide a non-empty label and hide it with label_visibility if needed.
+INFO:rag.qa_chain:Processing question: 676uy
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-07-02 21:17:14.457 `label` got an empty value. This is discouraged for accessibility reasons and may be disallowed in the future by raising an exception. Please provide a non-empty label and hide it with label_visibility if needed.
+INFO:rag.qa_chain:Processing question: 676uy
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:rag.qa_chain:Generated answer with 5 sources
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:rag.qa_chain:Generated answer with 5 sources
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:rag.qa_chain:Generated answer with 5 sources
+2025-07-02 21:17:39.171 `label` got an empty value. This is discouraged for accessibility reasons and may be disallowed in the future by raising an exception. Please provide a non-empty label and hide it with label_visibility if needed.
+2025-07-02 21:17:41.180 `label` got an empty value. This is discouraged for accessibility reasons and may be disallowed in the future by raising an exception. Please provide a non-empty label and hide it with label_visibility if needed.
+INFO:rag.qa_chain:Processing question: 6wttwqwe65qw565we5w7654q34434343qwq3qwq2
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:rag.qa_chain:Generated answer with 5 sources
+2025-07-02 21:18:03.698 `label` got an empty value. This is discouraged for accessibility reasons and may be disallowed in the future by raising an exception. Please provide a non-empty label and hide it with label_visibility if needed.
+INFO:rag.qa_chain:Processing question: 6wttwqwe65qw565we5w7654q34434343qwq3qwq2
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:rag.qa_chain:Generated answer with 5 sources

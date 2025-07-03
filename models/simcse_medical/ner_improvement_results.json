@@ -1,0 +1,30 @@
+{
+  "test_texts": [
+    "Metformin reduces blood glucose levels in patients with type 2 diabetes mellitus.",
+    "Ibuprofen can cause gastric ulcers and gastrointestinal bleeding complications.",
+    "The p53 tumor suppressor gene is frequently mutated in human cancers.",
+    "ACE inhibitors like lisinopril are first-line therapy for hypertension.",
+    "Warfarin is an anticoagulant that requires regular INR monitoring.",
+    "Aspirin therapy reduces cardiovascular risk in diabetic patients.",
+    "Statins such as atorvastatin lower cholesterol and prevent heart disease.",
+    "Insulin resistance is a key feature of type 2 diabetes pathophysiology.",
+    "BRCA1 mutations increase breast cancer susceptibility in women.",
+    "NSAIDs can cause nephrotoxicity and acute kidney injury."
+  ],
+  "basic_total": 10,
+  "enhanced_total": 24,
+  "improvement": 14,
+  "improvement_rate": 140.0,
+  "per_text_improvements": [
+    2,
+    1,
+    2,
+    2,
+    1,
+    1,
+    1,
+    2,
+    2,
+    0
+  ]
+}
